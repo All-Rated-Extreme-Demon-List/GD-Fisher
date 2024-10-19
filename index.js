@@ -2,7 +2,7 @@
 const simpleGit = require('simple-git');
 const Sequelize = require('sequelize');
 const dotenv = require('dotenv');
-const { Client, GatewayIntentBits } = require('discord.js');
+const { Client, GatewayIntentBits, MessageManager, Options } = require('discord.js');
 const log4js = require('log4js');
 const { clientInit, sequelizeInit } = require('./others/startUtils');
 const updateCache = require('./scheduled/updateCache');
@@ -26,7 +26,18 @@ process.on('unhandledRejection', (reason, promise) => {
 dotenv.config();
 
 // Discord client
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessages] });
+const client = new Client(
+	{ 	
+		intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessages],
+		makeCache: Options.cacheWithLimits({
+			...Options.DefaultMakeCacheSettings,
+			ReactionManager: 0,
+			GuildMemberManager: {
+				maxSize: 200,
+				keepOverLimit: member => member.id === member.client.user.id,
+			},
+		}),
+	});
 
 // Git repo setup
 const git = simpleGit();

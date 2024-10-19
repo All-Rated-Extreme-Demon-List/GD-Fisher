@@ -4,7 +4,6 @@ const {
     ButtonStyle,
     ButtonBuilder, EmbedBuilder,
 } = require('discord.js');
-const logger = require('log4js').getLogger();
 const lists = require('../others/lists.js');
 
 module.exports = {
@@ -64,7 +63,7 @@ module.exports = {
         const levelToGive = interaction.options.getString('leveltogive');
         const levelToGet = interaction.options.getString('leveltoget');
 
-        if (!interaction.client.guilds.cache.get(interaction.guildId).members.cache.get(targetUser.id)) {
+        if (!(await interaction.client.guilds.cache.get(interaction.guildId).members.fetch(targetUser.id))) {
             return await interaction.reply({content: 'This user is not in this server', ephemeral: true});
         }
 

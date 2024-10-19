@@ -38,15 +38,16 @@ module.exports = {
         let pagination;
         const pageSize = 20;
 		
-		let guildMembers;
+		const memberCache = new Map();
 		try {
-			guildMembers = await interaction.guild.members.fetch({cache: true});
+			const guildMembers = await interaction.guild.members.fetch({ cache: false });
+			guildMembers.forEach(member => {
+				memberCache.set(member.user.id, member.user.tag);
+			});
 		} catch (error) {
 			logger.error('Error fetching guild members:', error);
 			return await interaction.editReply(':x: An error occurred while fetching guild members.');
 		}
-
-		const guildMemberIds = new Set(guildMembers.map(member => member.user.id));
 
 		const attachments = {};
         lists.forEach((list) => {
@@ -72,15 +73,15 @@ module.exports = {
 				logger.error('Error fetching leaderboard:', error);
 				return null;
 			}
-			return leaderboard.filter(user => guildMemberIds.has(user.user));
+			return leaderboard.filter(user => memberCache.has(user.user));
 		}
-		
+
 		async function formatData(leaderboard, list) {
 			const data = [];
 			for (let i = 0; i < leaderboard.length; i++) {
 				const user = leaderboard[i];
-				const discordUser = interaction.client.users.cache.get(user.user);
-				data.push(`**${i + 1}** - \`${discordUser?.tag ?? user.user}\` (${Math.round(user.amount * 100) / 100} points)`);
+				const userTag = memberCache.get(user.user) || user.user;
+				data.push(`**${i + 1}** - \`${userTag}\` (${Math.round(user.amount * 100) / 100} points)`);
 			}
 			const chunks = [];
 			for (let i = 0; i < leaderboard.length; i += pageSize) {
@@ -94,14 +95,14 @@ module.exports = {
 					defaultPage = Math.floor(rank / pageSize);
 				}
 			}
-			return { chunks:chunks, defaultPage: defaultPage };
+			return { chunks: chunks, defaultPage: defaultPage };
 		}
 
 		const leaderboardData = {};
         await Promise.all(
             lists.map(async (l) => {
                 try {
-                    const leaderboard = (await fetchLeaderboard(l.value)).filter(user => guildMemberIds.has(user.user));
+                    const leaderboard = await fetchLeaderboard(l.value);
 					const { chunks, defaultPage } = await formatData(leaderboard, l.value);
 					leaderboardData[l.value] = {
 						chunks: chunks,
@@ -175,7 +176,7 @@ module.exports = {
         const listCollector = response.createMessageComponentCollector({
             filter: listCollectorFilter,
             componentType: ComponentType.StringSelect,
-            time: 300_000,
+            time: 60_000,
         });
 
         listCollector.on('collect', async (selectMenuInteraction) => {
@@ -192,6 +193,7 @@ module.exports = {
                 await interaction.editReply({
                     components: []
                 });
+                memberCache.clear();
             }
         });
 	},

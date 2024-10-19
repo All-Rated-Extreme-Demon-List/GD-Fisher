@@ -74,5 +74,17 @@ module.exports = [
 			low_value = 15.0;
 			return (top_value * Math.exp(Math.log(top_value / low_value) / (1.0 - level_count) * (pos - 1.0)))
 		}
+	},
+	{ 
+		name:'UDL',
+		fullname: "Unrated Demon List",
+		value:'udl',
+		repo:'github.com/Unrated-Demon-List/unrated-demon-list.git',
+		cutoff: 150,
+		score: (pos, _) => {
+			if (pos > 150) return 0;
+			const maximum_points = 250;
+			return ((140 * maximum_points + 7000) / Math.sqrt(3157 * (pos - 1) + 19600) - 50);
+		}
 	}
 ]

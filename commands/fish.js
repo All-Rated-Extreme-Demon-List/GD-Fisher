@@ -5,7 +5,7 @@ const { checkCooldown } = require('../others/cooldowns.js');
 
 module.exports = {
 	enabled: true,
-	cooldown: 5,
+	cooldown: 2,
 	data: new SlashCommandBuilder()
 		.setName('fish')
 		.setDescription('GD Lists Fishing')

@@ -10,7 +10,7 @@ const listSubcommands = lists.map(list => ({
 
 module.exports = {
 	enabled: true,
-	cooldown: 5,
+	cooldown: 2,
 	data: (() => {
 		const command = new SlashCommandBuilder()
 			.setName('fishl')

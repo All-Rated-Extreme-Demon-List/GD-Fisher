@@ -79,7 +79,7 @@ module.exports = [
 		name:'UDL',
 		fullname: "Unrated Demon List",
 		value:'udl',
-		repo:'github.com/Unrated-Demon-List/unrated-demon-list.git',
+		repo:'https://github.com/Unrated-Demon-List/unrated-demon-list.git',
 		cutoff: 150,
 		score: (pos, _) => {
 			if (pos > 150) return 0;

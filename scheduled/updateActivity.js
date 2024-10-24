@@ -1,3 +1,4 @@
+const { ActivityType } = require('discord.js');
 const lists = require('../others/lists.js');
 const logger = require('log4js').getLogger();
 
@@ -20,7 +21,7 @@ module.exports = {
 		const nbServers = await db.guilds.count({ where: { enabled: true } });
 
 		const activity = `Fishing levels for ${nbUsers} fishers on ${nbServers} servers`;
-		client.user.setActivity(activity);
+		client.user.setActivity(activity, {type: ActivityType.Custom});
 		logger.info('Scheduled - ' + 'Successfully updated activity status to: ' + activity);
 	},
 };

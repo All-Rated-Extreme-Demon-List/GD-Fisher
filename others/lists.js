@@ -86,5 +86,15 @@ module.exports = [
 			const maximum_points = 250;
 			return ((140 * maximum_points + 7000) / Math.sqrt(3157 * (pos - 1) + 19600) - 50);
 		}
+	},
+	{
+		name: "2PL",
+		fullname: "2 Player List",
+		value: "2pl",
+		repo: 'https://github.com/2plist/2plist.git',
+		cutoff: 75,
+		score: (pos, _) => {
+			return ((164.498*(Math.exp(-0.0982586*pos)))+0.896325);
+		}
 	}
 ]

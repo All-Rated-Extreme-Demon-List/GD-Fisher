@@ -6,3 +6,5 @@ The bot currently supports:
 - The [Hard Demon List (HDL)](https://hdl.pages.dev) ([Github link](https://github.com/Robaleg9/HardDemonList))
 - The [Insane Demon List (IDL)](https://insanedemonlist.com)
 - The [Challenge List](https://challengelist.gd/)
+- The [Unrated Demon List](https://udl.pages.dev/) ([Github link](https://github.com/Unrated-Demon-List/unrated-demon-list))
+- The [2 Player List](https://2plist.github.io/2plist/) ([Github link](https://github.com/2plist/2plist))

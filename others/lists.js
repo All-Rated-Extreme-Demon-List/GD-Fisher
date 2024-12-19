@@ -96,5 +96,15 @@ module.exports = [
 		score: (pos, _) => {
 			return ((164.498*(Math.exp(-0.0982586*pos)))+0.896325);
 		}
+	},
+	{
+		name: "TSL",
+		fullname: "The Shitty List",
+		value: "tsl",
+		repo: 'https://github.com/TheShittyList/TheShittyListPlus',
+		cutoff: 150,
+		score: (pos, _) => {
+			return (-24.9975*Math.pow(pos-1, 0.4) + 200);
+		}
 	}
 ]

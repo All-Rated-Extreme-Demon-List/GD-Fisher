@@ -8,3 +8,4 @@ The bot currently supports:
 - The [Challenge List](https://challengelist.gd/)
 - The [Unrated Demon List](https://udl.pages.dev/) ([Github link](https://github.com/Unrated-Demon-List/unrated-demon-list))
 - The [2 Player List](https://2plist.github.io/2plist/) ([Github link](https://github.com/2plist/2plist))
+- The [Shitty List](https://tsl.pages.dev/#/)

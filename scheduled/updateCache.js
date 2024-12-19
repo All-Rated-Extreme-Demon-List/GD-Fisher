@@ -24,12 +24,18 @@ module.exports = {
 				levels = await parseLevels(list.value);
 			}
 
+			if (!levels || levels === -1) {
+				logger.error('Scheduled - ' + `Failed to update cached levels for ${list.value}.`);
+				continue;
+			}
+			
 			if (list.score) {
 				levels = levels.map((level) => {
 					level.points = list.score(level.position, levels.length);
 					return level;
 				});
 			}
+
 			
 			if (levels.length > 0) {
 				await cache[list.value].destroy({ where: {}});

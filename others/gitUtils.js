@@ -11,11 +11,12 @@ module.exports = {
 		
 		try {
 			const repoUrl = lists.find(l => l.value === list).repo;
+			const authedRepoUrl = repoUrl.replace('https://', `https://${process.env.GITHUB_USERNAME}:${process.env.GITHUB_TOKEN}@`);
 			const localRepoPath =  path.resolve(__dirname, `../data/repos/${list}`);
 			
 			if (!fs.existsSync(localRepoPath)) {
 				logger.info('Git - ' + 'Cloning the repository for the first time, this may take a while...');
-				await git.clone(repoUrl, localRepoPath);
+				await git.clone(authedRepoUrl, localRepoPath);
 			} else {
 				logger.info('Git - ' + 'Pulling the latest changes from the repository...');
 				await git.cwd(localRepoPath).pull();

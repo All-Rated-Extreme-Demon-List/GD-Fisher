@@ -101,7 +101,7 @@ module.exports = [
 		name: "TSL",
 		fullname: "The Shitty List",
 		value: "tsl",
-		repo: 'https://github.com/TheShittyList/TheShittyListPlus',
+		repo: 'https://github.com/TheShittyList/TheShittyListPlus.git',
 		cutoff: 150,
 		score: (pos, _) => {
 			return (-24.9975*Math.pow(pos-1, 0.4) + 200);

@@ -19,7 +19,7 @@ module.exports = {
 				await git.clone(authedRepoUrl, localRepoPath);
 			} else {
 				logger.info('Git - ' + 'Pulling the latest changes from the repository...');
-				await git.cwd(localRepoPath).pull();
+				await git.cwd(localRepoPath).raw(['pull', authedRepoUrl]);
 			}
 		} catch (error) {
 			logger.error('Git - ' + `Error updating the repository:\n${error}`);

@@ -3,8 +3,23 @@ module.exports = [
 		name:'AREDL',
 		fullname: "All Rated Extreme Demons List",
 	  	value:'aredl',
-	  	repo:'https://github.com/All-Rated-Extreme-Demon-List/AREDL.git',
 		cutoff: null,
+		cache: async () => {
+			const logger = require('log4js').getLogger();
+			try {
+				const list = await fetch("https://api.aredl.net/v2/api/aredl/levels");
+				return (await list.json()).filter((level) => !level.legacy).map((level) => {
+					return {
+						name: level.name,
+						position: level.position,
+						filename: level.id,
+					}
+				});
+			} catch(error) {
+				logger.error('Failed to fetch AREDL: ' + error);
+				return [];
+			}
+		},
 	  	score: (pos, level_count) => {
 			const baseFactor = 0.0005832492374192035997815;
 			const b = (level_count - 1) * baseFactor;

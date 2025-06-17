@@ -12,7 +12,7 @@ module.exports = [
 					return {
 						name: level.name,
 						position: level.position,
-						filename: level.id,
+						filename: level.name.toLowerCase().replace(/[\s()]+/g, '_').replace(/[^a-z0-9_]/g, '').replace(/_+/g, '_').replace(/^_+|_+$/g, '')
 					}
 				});
 			} catch(error) {

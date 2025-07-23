@@ -121,5 +121,30 @@ module.exports = [
 		score: (pos, _) => {
 			return (-24.9975*Math.pow(pos-1, 0.4) + 200);
 		}
+	},
+	{
+		name:'PL',
+		fullname: "Pemonlist",
+		value:'pl',
+		cutoff: 150,
+		cache: async () => {
+			const logger = require('log4js').getLogger();
+			try {
+				const list = await fetch("https://pemonlist.com/api/list?limit=150");
+				return (await list.json()).data.map((level) => {
+					return {
+						name: level.name,
+						position: level.placement,
+						filename: level.level_id,
+					}
+				});
+			} catch(error) {
+				logger.error('Failed to fetch Pemonlist: ' + error);
+				return [];
+			}
+		},
+		score: (pos, _) => {
+			return pos <= 150 ? Math.round(190.5 / (Math.log10(0.0032 * (pos + 89.8)) + 1) - 211.29) : 0;
+		}
 	}
 ]

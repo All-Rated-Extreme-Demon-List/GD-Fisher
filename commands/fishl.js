@@ -32,7 +32,7 @@ module.exports = {
 
 	async execute(interaction) {
 		const subcommand = interaction.options.getSubcommand();
-		const expiredTimestamp = checkCooldown(interaction.user.id, subcommand);
+		const expiredTimestamp = checkCooldown(interaction.options.getUser('for')?.id ?? interaction.user.id, subcommand);
 		if (expiredTimestamp) {
 			return await interaction.reply({content:`:x: You are on cooldown for the\`${lists.find(l => l.value === subcommand).name}\` list. You can fish again in <t:${expiredTimestamp}:R>.`, ephemeral: true });
 		}

@@ -7,7 +7,7 @@ module.exports = {
 	async cloneOrPullRepo(list) {
 		const { git } = require('../index');
 
-		logger.info('Git - ' + 'Updating GitHub repositories...');
+		logger.info('Git - ' + `Updating GitHub repository for the ${list} list...`);
 		
 		try {
 			const repoUrl = lists.find(l => l.value === list).repo;
@@ -25,7 +25,7 @@ module.exports = {
 			logger.error('Git - ' + `Error updating the repository:\n${error}`);
 			return -1;
 		}
-		logger.info('Git - ' + 'Successfully updated the repository');
+		logger.info('Git - ' + `Successfully updated the repository for the ${list} list.`);
 		
 	},
 	async parseLevels(list) {

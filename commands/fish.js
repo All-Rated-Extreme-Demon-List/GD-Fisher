@@ -22,7 +22,7 @@ module.exports = {
 		const list = await getList(interaction);
 		const expiredTimestamp = checkCooldown(interaction.options.getUser('for')?.id ?? interaction.user.id, list);
 		if (expiredTimestamp) {
-			return await interaction.reply({content:`:x: You are on cooldown for the \`${lists.find(l => l.value === list).name}\` list. You can fish again in <t:${expiredTimestamp}:R>.`, ephemeral: true });
+			return await interaction.reply({content:`:x: You are on cooldown for the \`${lists.find(l => l.value === list).name}\` list. You can fish again <t:${expiredTimestamp}:R>.`, ephemeral: true });
 		}
 		await fish(interaction, list);
 	},

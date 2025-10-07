@@ -116,7 +116,7 @@ module.exports = {
             .setColor("Red");
 
         const editRow = new ActionRowBuilder().addComponents(confirmTrade, cancelTrade);
-        const tradeMessage = await interaction.reply({ content: `<@${targetUser.id}>`, components: [editRow], embeds: [embed], fetchReply: true });
+        const tradeMessage = await interaction.reply({ content: `<@${targetUser.id}>`, components: [editRow], embeds: [embed] });
 
         const tradeCollectorFilter = i => i.user.id === targetUser.id;
         try {

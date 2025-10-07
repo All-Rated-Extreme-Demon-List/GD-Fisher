@@ -12,15 +12,16 @@
     "@thenorthsolution/djs-pagination": "^1.0.0",
     "bottleneck": "^2.19.5",
     "discord.js": "^14.16.3",
-    "dotenv": "^16.4.5",
+    "dotenv": "^17.2.3",
     "log4js": "^6.9.1",
-    "node-cron": "^3.0.3",
+    "node-cron": "^4.2.1",
     "reflect-metadata": "^0.2.2",
     "sequelize": "^6.37.3",
     "simple-git": "^3.27.0",
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {
-    "eslint": "^9.11.1"
+    "eslint": "^9.11.1",
+    "tar-fs": ">=2.1.4"
   }
 }

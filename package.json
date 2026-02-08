@@ -1,27 +1,31 @@
 {
-  "name": "aredl-fisher",
-  "version": "1.0.0",
-  "description": "Discord fishing app for the All Rated Extreme Demons List",
-  "main": "index.js",
-  "scripts": {
-    "deploy": "node deployCommands.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@thenorthsolution/djs-pagination": "^1.0.0",
-    "bottleneck": "^2.19.5",
-    "discord.js": "^14.16.3",
-    "dotenv": "^17.2.3",
-    "log4js": "^6.9.1",
-    "node-cron": "^4.2.1",
-    "reflect-metadata": "^0.2.2",
-    "sequelize": "^6.37.3",
-    "simple-git": "^3.27.0",
-    "sqlite3": "^5.1.7"
-  },
-  "devDependencies": {
-    "eslint": "^9.11.1",
-    "tar-fs": ">=2.1.4"
-  }
+    "name": "commandkit-basic-ts",
+    "description": "A CommandKit project using TypeScript",
+    "version": "0.1.0",
+    "type": "module",
+    "private": true,
+    "main": "dist/index.js",
+    "scripts": {
+        "dev": "commandkit dev",
+        "build": "commandkit build",
+        "start": "commandkit start"
+    },
+    "devDependencies": {
+        "@types/node": "^24.0.10",
+        "prettier": "^3.8.1",
+        "typescript": "^5.8.3"
+    },
+    "dependencies": {
+        "@commandkit/tasks": "^1.2.0-rc.13",
+        "commandkit": "patch:commandkit@npm%3A1.2.0-dev.20260131121934#~/.yarn/patches/commandkit-npm-1.2.0-dev.20260131121934-fe8689f25e.patch",
+        "discord.js": "^14.24.0",
+        "log4js": "^6.9.1",
+        "sequelize": "^6.37.7",
+        "simple-git": "^3.30.0",
+        "sqlite3": "^5.1.7"
+    },
+    "packageManager": "yarn@4.12.0",
+    "imports": {
+        "#src/*": "./src/*.ts"
+    }
 }

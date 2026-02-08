@@ -1,0 +1,12 @@
+diff --git a/ratelimit.cjs b/ratelimit.cjs
+index e5c5df834c88fde409699fa0e06f893c4bf71181..0b5612c6d828fcb3e79ae52668ed509cc46e3782 100644
+--- a/ratelimit.cjs
++++ b/ratelimit.cjs
+@@ -1,6 +1,7 @@
+ const {
+   DEFAULT_MAX_REQUESTS,
+   DEFAULT_TIMEOUT,
++  RateLimitStorage,
+   MemoryRateLimitStorage,
+   ratelimit,
+   RateLimiter,

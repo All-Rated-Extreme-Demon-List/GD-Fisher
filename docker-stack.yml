@@ -1,0 +1,52 @@
+services:
+    bot:
+        image: ${IMAGE_REPO:-gd-fisher:local}
+        environment:
+            - NODE_ENV=production
+        secrets:
+            - source: gd_fisher_token
+              target: token
+            - source: gd_fisher_github_username
+              target: github_username
+            - source: gd_fisher_github_token
+              target: github_token
+        volumes:
+            - type: bind
+              source: ${DEPLOY_PATH}/data
+              target: /app/data
+            - type: bind
+              source: ${DEPLOY_PATH}/logs
+              target: /app/logs
+        networks:
+            - gd_fisher_net
+        deploy:
+            restart_policy:
+                condition: any
+
+    restarter:
+        image: docker:cli
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+        command:
+            [
+                'sh',
+                '-c',
+                'while :; do sleep 86400; docker service update --force ${STACK_NAME:-gd_fisher_stack}_bot || true; done',
+            ]
+        networks:
+            - gd_fisher_net
+        deploy:
+            restart_policy:
+                condition: any
+
+networks:
+    gd_fisher_net:
+        external: true
+
+secrets:
+    gd_fisher_token:
+        external: true
+    gd_fisher_github_username:
+        external: true
+    gd_fisher_github_token:
+        external: true

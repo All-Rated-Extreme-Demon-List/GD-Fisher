@@ -1,0 +1,26 @@
+services:
+    bot:
+        build: .
+        container_name: gd-fisher
+        restart: unless-stopped
+        env_file:
+            - .env
+        environment:
+            - NODE_ENV=production
+        volumes:
+            - ./data:/app/data
+            - ./logs:/app/logs
+
+    restarter:
+        image: docker:cli
+        restart: unless-stopped
+        depends_on:
+            - bot
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+        command:
+            [
+                'sh',
+                '-c',
+                'while :; do sleep 86400; docker restart gd-fisher || true; done',
+            ]

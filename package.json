@@ -17,12 +17,15 @@
     },
     "dependencies": {
         "@commandkit/tasks": "^1.2.0-rc.13",
+        "@isaacs/brace-expansion": "^5.0.1",
         "commandkit": "patch:commandkit@npm%3A1.2.0-dev.20260131121934#~/.yarn/patches/commandkit-npm-1.2.0-dev.20260131121934-fe8689f25e.patch",
         "discord.js": "^14.24.0",
         "log4js": "^6.9.1",
         "sequelize": "^6.37.7",
         "simple-git": "^3.30.0",
-        "sqlite3": "^5.1.7"
+        "sqlite3": "^5.1.7",
+        "tar": "^7.5.7",
+        "undici": "^6.23.0"
     },
     "packageManager": "yarn@4.12.0",
     "imports": {

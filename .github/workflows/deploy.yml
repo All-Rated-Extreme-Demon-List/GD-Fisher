@@ -74,7 +74,8 @@ jobs:
                   key: ${{ secrets.DEPLOY_KEY }}
                   envs: GHCR_USERNAME,GHCR_TOKEN,DEPLOY_PATH,IMAGE_REPO,GD_FISHER_TOKEN,GD_FISHER_GITHUB_USERNAME,GD_FISHER_GITHUB_TOKEN
                   script: |
-                      set -euo pipefail
+                      set -eu
+                      mkdir -p "$DEPLOY_PATH" "$DEPLOY_PATH/data" "$DEPLOY_PATH/logs"
                       cd "$DEPLOY_PATH"
 
                       docker network create -d overlay --attachable gd_fisher_net 2>/dev/null || true

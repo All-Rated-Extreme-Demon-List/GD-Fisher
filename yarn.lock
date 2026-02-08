@@ -369,11 +369,11 @@ __metadata:
   linkType: hard
 
 "@commandkit/tasks@npm:^1.2.0-rc.13":
-  version: 1.2.0-rc.13
-  resolution: "@commandkit/tasks@npm:1.2.0-rc.13"
+  version: 1.2.0-rc.14
+  resolution: "@commandkit/tasks@npm:1.2.0-rc.14"
   dependencies:
     cron-parser: "npm:^4.9.0"
-  checksum: 10c0/9700c166db97d3ebba6ce0bcc83c508a31c5671dd49d755c886e14efffeed6909edfd591c38b04b2137b4c40df751fce3b1db76524995f8bc156c1e46d760639
+  checksum: 10c0/8b99694a6589906ed63513d57e41fed599e77c93a587a79c6c24a03b0c22d6e14486a2b7e05df28313b88c32a1e228770d186812a53a595ac61bb07e4d29bdb1
   languageName: node
   linkType: hard
 
@@ -497,15 +497,6 @@ __metadata:
   version: 4.0.1
   resolution: "@isaacs/balanced-match@npm:4.0.1"
   checksum: 10c0/7da011805b259ec5c955f01cee903da72ad97c5e6f01ca96197267d3f33103d5b2f8a1af192140f3aa64526c593c8d098ae366c2b11f7f17645d12387c2fd420
-  languageName: node
-  linkType: hard
-
-"@isaacs/brace-expansion@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "@isaacs/brace-expansion@npm:5.0.0"
-  dependencies:
-    "@isaacs/balanced-match": "npm:^4.0.1"
-  checksum: 10c0/b4d4812f4be53afc2c5b6c545001ff7a4659af68d4484804e9d514e183d20269bb81def8682c01a22b17c4d6aed14292c8494f7d2ac664e547101c1a905aa977
   languageName: node
   linkType: hard
 
@@ -1263,26 +1254,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commandkit-basic-ts@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "commandkit-basic-ts@workspace:."
-  dependencies:
-    "@commandkit/tasks": "npm:^1.2.0-rc.13"
-    "@isaacs/brace-expansion": "npm:^5.0.1"
-    "@types/node": "npm:^24.0.10"
-    commandkit: "patch:commandkit@npm%3A1.2.0-dev.20260131121934#~/.yarn/patches/commandkit-npm-1.2.0-dev.20260131121934-fe8689f25e.patch"
-    discord.js: "npm:^14.24.0"
-    log4js: "npm:^6.9.1"
-    prettier: "npm:^3.8.1"
-    sequelize: "npm:^6.37.7"
-    simple-git: "npm:^3.30.0"
-    sqlite3: "npm:^5.1.7"
-    tar: "npm:^7.5.7"
-    typescript: "npm:^5.8.3"
-    undici: "npm:^6.23.0"
-  languageName: unknown
-  linkType: soft
-
 "commandkit@npm:1.2.0-dev.20260131121934":
   version: 1.2.0-dev.20260131121934
   resolution: "commandkit@npm:1.2.0-dev.20260131121934"
@@ -1677,6 +1648,23 @@ __metadata:
   checksum: 10c0/ef10d7981113d69225135f994c9f8c4369d945e64a8fc721d655a3a38421b738c9fe899951721d1b47b73c41fdb5404ac87cc8903b2ecbed95d2800363e7e58c
   languageName: node
   linkType: hard
+
+"gd-fisher@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "gd-fisher@workspace:."
+  dependencies:
+    "@commandkit/tasks": "npm:^1.2.0-rc.13"
+    "@types/node": "npm:^24.0.10"
+    commandkit: "patch:commandkit@npm%3A1.2.0-dev.20260131121934#~/.yarn/patches/commandkit-npm-1.2.0-dev.20260131121934-fe8689f25e.patch"
+    discord.js: "npm:^14.24.0"
+    log4js: "npm:^6.9.1"
+    prettier: "npm:^3.8.1"
+    sequelize: "npm:^6.37.7"
+    simple-git: "npm:^3.30.0"
+    sqlite3: "npm:^5.1.7"
+    typescript: "npm:^5.8.3"
+  languageName: unknown
+  linkType: soft
 
 "gensync@npm:^1.0.0-beta.2":
   version: 1.0.0-beta.2
@@ -2230,13 +2218,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minipass@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "minipass@npm:5.0.0"
-  checksum: 10c0/a91d8043f691796a8ac88df039da19933ef0f633e3d7f0d35dcd5373af49131cf2399bfc355f41515dc495e3990369c3858cd319e5c2722b4753c90bf3152462
-  languageName: node
-  linkType: hard
-
 "minipass@npm:^7.0.2, minipass@npm:^7.0.3, minipass@npm:^7.0.4, minipass@npm:^7.1.2":
   version: 7.1.2
   resolution: "minipass@npm:7.1.2"
@@ -2244,7 +2225,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minizlib@npm:^2.0.0, minizlib@npm:^2.1.1":
+"minizlib@npm:^2.0.0":
   version: 2.1.2
   resolution: "minizlib@npm:2.1.2"
   dependencies:
@@ -3089,21 +3070,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tar@npm:^6.0.2, tar@npm:^6.1.11, tar@npm:^6.1.2":
-  version: 6.2.1
-  resolution: "tar@npm:6.2.1"
-  dependencies:
-    chownr: "npm:^2.0.0"
-    fs-minipass: "npm:^2.0.0"
-    minipass: "npm:^5.0.0"
-    minizlib: "npm:^2.1.1"
-    mkdirp: "npm:^1.0.3"
-    yallist: "npm:^4.0.0"
-  checksum: 10c0/a5eca3eb50bc11552d453488344e6507156b9193efd7635e98e867fab275d527af53d8866e2370cd09dfe74378a18111622ace35af6a608e5223a7d27fe99537
-  languageName: node
-  linkType: hard
-
-"tar@npm:^7.5.4, tar@npm:^7.5.7":
+"tar@npm:^7.5.7":
   version: 7.5.7
   resolution: "tar@npm:7.5.7"
   dependencies:
@@ -3252,13 +3219,6 @@ __metadata:
   version: 7.16.0
   resolution: "undici-types@npm:7.16.0"
   checksum: 10c0/3033e2f2b5c9f1504bdc5934646cb54e37ecaca0f9249c983f7b1fc2e87c6d18399ebb05dc7fd5419e02b2e915f734d872a65da2e3eeed1813951c427d33cc9a
-  languageName: node
-  linkType: hard
-
-"undici@npm:6.21.3":
-  version: 6.21.3
-  resolution: "undici@npm:6.21.3"
-  checksum: 10c0/294da109853fad7a6ef5a172ad0ca3fb3f1f60cf34703d062a5ec967daf69ad8c03b52e6d536c5cba3bb65615769bf08e5b30798915cbccdddaca01045173dda
   languageName: node
   linkType: hard
 

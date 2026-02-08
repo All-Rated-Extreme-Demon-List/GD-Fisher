@@ -1277,7 +1277,6 @@ __metadata:
     sequelize: "npm:^6.37.7"
     simple-git: "npm:^3.30.0"
     sqlite3: "npm:^5.1.7"
-    tar: "npm:^7.5.7"
     typescript: "npm:^5.8.3"
     undici: "npm:^6.23.0"
   languageName: unknown
@@ -3103,7 +3102,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tar@npm:^7.5.4, tar@npm:^7.5.7":
+"tar@npm:^7.5.4":
   version: 7.5.7
   resolution: "tar@npm:7.5.7"
   dependencies:

@@ -1,19 +1,28 @@
+import { Logger } from 'commandkit';
+
 export type ListLevel = {
     name: string;
     position: number;
     filename: string;
 };
 
-export type FullListLevel = ListLevel & {
+export type ListLevelWithPoints = ListLevel & {
     points: number;
 };
 
-type ListWithCache = {
-    cache: () => Promise<ListLevel[]>;
+type ListWithCacheOnly = {
+    cache: () => Promise<ListLevelWithPoints[]>;
 };
 
-type ListWithRepo = {
-    repo: string;
+type ListWithScore = (
+    | {
+          cache: () => Promise<ListLevel[]>;
+      }
+    | {
+          repo: string;
+      }
+) & {
+    score: (position: number, level_count: number) => number;
 };
 
 export type List = {
@@ -21,13 +30,13 @@ export type List = {
     fullname: string;
     value: string;
     cutoff: number | null;
-    score: (position: number, level_count: number) => number;
-} & (ListWithCache | ListWithRepo);
+} & (ListWithCacheOnly | ListWithScore);
 
 type AREDLLevel = {
     name: string;
     position: number;
     legacy: boolean;
+    points: number;
 };
 
 type IDLLevel = {
@@ -48,6 +57,15 @@ type PemonlistLevel = {
     level_id: string;
 };
 
+type ILLLevel = {
+    level: {
+        id: number;
+        name: string;
+        levelPoints: number;
+        rank: number;
+    };
+};
+
 export const lists = [
     {
         name: 'AREDL',
@@ -55,7 +73,6 @@ export const lists = [
         value: 'aredl',
         cutoff: null,
         cache: async () => {
-            const logger = require('log4js').getLogger();
             try {
                 const list = await fetch(
                     'https://api.aredl.net/v2/api/aredl/levels',
@@ -72,18 +89,13 @@ export const lists = [
                                 .replace(/[^a-z0-9_]/g, '')
                                 .replace(/_+/g, '_')
                                 .replace(/^_+|_+$/g, ''),
+                            points: level.points / 10,
                         };
                     });
             } catch (error) {
-                logger.error('Failed to fetch AREDL: ' + error);
+                Logger.error('Failed to fetch AREDL: ' + error);
                 return [];
             }
-        },
-        score: (pos, level_count) => {
-            const baseFactor = 0.0005832492374192035997815;
-            const b = (level_count - 1) * baseFactor;
-            const a = 600 * Math.sqrt(b);
-            return a / Math.sqrt((pos - 1) / 50 + b) - 100;
         },
     },
     {
@@ -102,7 +114,6 @@ export const lists = [
         value: 'idl',
         cutoff: 150,
         cache: async () => {
-            const logger = require('log4js').getLogger();
             try {
                 const list = await fetch(
                     'https://insanedemonlist.com/api/levels',
@@ -115,7 +126,7 @@ export const lists = [
                     };
                 });
             } catch (error) {
-                logger.error('Failed to fetch IDL: ' + error);
+                Logger.error('Failed to fetch IDL: ' + error);
                 return [];
             }
         },
@@ -130,7 +141,6 @@ export const lists = [
         value: 'cl',
         cutoff: 100,
         cache: async () => {
-            const logger = require('log4js').getLogger();
             try {
                 const list = await fetch(
                     'https://challengelist.gd/api/v1/demons/?limit=100',
@@ -145,7 +155,7 @@ export const lists = [
                     },
                 );
             } catch (error) {
-                logger.error('Failed to fetch Challenge List: ' + error);
+                Logger.error('Failed to fetch Challenge List: ' + error);
                 return [];
             }
         },
@@ -224,6 +234,32 @@ export const lists = [
                   )
                 : 0;
         },
+    },
+    {
+        name: 'ILL',
+        fullname: 'Impossible Levels List',
+        value: 'ill',
+        cache: async () => {
+            try {
+                const list = await fetch(
+                    'https://api.impossiblelevels.com/api/Levels/details?showHidden=false&page=1&pageSize=10000&sortBy=rank&sortDirection=asc&listType=ILL',
+                );
+                return ((await list.json()).data as ILLLevel[]).map(
+                    ({ level }) => {
+                        return {
+                            name: level.name,
+                            position: level.rank,
+                            filename: String(level.id),
+                            points: level.levelPoints,
+                        };
+                    },
+                );
+            } catch (error) {
+                Logger.error('Failed to fetch ILL: ' + error);
+                return [];
+            }
+        },
+        cutoff: null,
     },
 ] as const satisfies readonly List[];
 

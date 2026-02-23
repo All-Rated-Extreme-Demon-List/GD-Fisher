@@ -6,7 +6,7 @@ Welcome to the GD Fisher github repository! You will find here the source code o
 
 The bot currently supports:
 
-- The [All Rated Extreme Demons List (AREDL)](https://aredl.net) ([Github link](https://github.com/All-Rated-Extreme-Demon-List/AREDL))
+- The [All Rated Extreme Demons List (AREDL)](https://aredl.net)
 - The [Hard Demon List (HDL)](https://hdl.pages.dev) ([Github link](https://github.com/Robaleg9/HardDemonList))
 - The [Insane Demon List (IDL)](https://insanedemonlist.com)
 - The [Challenge List (CL)](https://challengelist.gd/)
@@ -14,3 +14,4 @@ The bot currently supports:
 - The [2 Player List (2PL)](https://2plist.github.io/2plist/) ([Github link](https://github.com/2plist/2plist))
 - The [Shitty List (TSL)](https://tsl.pages.dev/#/)
 - The [Pemonlist (PL)](https://pemonlist.com)
+- The [Impossible Levels List (ILL)](https://impossiblelevels.com)

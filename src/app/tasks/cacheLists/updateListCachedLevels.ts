@@ -1,28 +1,23 @@
 import { useDatabase } from '#src/app/plugins/sequelize/hooks';
-import { type AvailableList, type ListLevel } from '#src/lists';
+import type { ListLevelWithPoints, AvailableList } from '#src/lists';
 import { Logger } from 'commandkit';
 
 export async function updateListCachedLevels(
     list: AvailableList,
-    levels: ListLevel[],
+    levels: ListLevelWithPoints[],
 ) {
     const { cache, sequelize } = useDatabase();
 
-    const fullLevels = levels.map((level) => ({
-        ...level,
-        points: list.score(level.position, levels.length),
-    }));
-
-    if (fullLevels.length > 0) {
+    if (levels.length > 0) {
         try {
             await sequelize.transaction(async (transaction) => {
                 await cache[list.value].destroy({ where: {}, transaction });
-                await cache[list.value].bulkCreate(fullLevels, { transaction });
+                await cache[list.value].bulkCreate(levels, { transaction });
             });
 
             Logger.info(
                 `Tasks - ${list.value} - ` +
-                    `Successfully updated ${fullLevels.length} cached levels.`,
+                    `Successfully updated ${levels.length} cached levels.`,
             );
         } catch (error) {
             Logger.error(

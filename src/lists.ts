@@ -296,7 +296,22 @@ export const lists = [
         repo: 'https://github.com/the-layout-list/website.git',
         cutoff: null,
         score: (pos, _) => {
-            return pos <= 150 ? -24.9975 * Math.pow(pos - 1, 0.4) + 200 : 0;
+            const LAST_POS = 547;
+            const TAIL_START_SCORE = 41.0439 - 0.069576 * LAST_POS;
+            const DECAY = 0.069576 / TAIL_START_SCORE;
+            const roundToTwo = (value: number) => Number(value.toFixed(2));
+
+            if (pos <= 1) return roundToTwo(750);
+            if (pos <= 160)
+                return roundToTwo(
+                    1224.676 * Math.pow(pos + 1.49536, -0.171879) - 431.652,
+                );
+            if (pos <= 401) return roundToTwo(124.597 - 0.275597 * pos);
+            if (pos <= LAST_POS) return roundToTwo(41.0439 - 0.069576 * pos);
+
+            return roundToTwo(
+                TAIL_START_SCORE * Math.exp(-DECAY * (pos - LAST_POS)),
+            );
         },
     },
     {

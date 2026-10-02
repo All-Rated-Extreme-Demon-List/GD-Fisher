@@ -295,9 +295,8 @@ export const lists = [
         value: 'll',
         repo: 'https://github.com/the-layout-list/website.git',
         cutoff: null,
-        score: (pos, _) => {
-            const LAST_POS = 547;
-            const TAIL_START_SCORE = 41.0439 - 0.069576 * LAST_POS;
+        score: (pos, level_count) => {
+            const TAIL_START_SCORE = 41.0439 - 0.069576 * level_count;
             const DECAY = 0.069576 / TAIL_START_SCORE;
             const roundToTwo = (value: number) => Number(value.toFixed(2));
 
@@ -307,10 +306,10 @@ export const lists = [
                     1224.676 * Math.pow(pos + 1.49536, -0.171879) - 431.652,
                 );
             if (pos <= 401) return roundToTwo(124.597 - 0.275597 * pos);
-            if (pos <= LAST_POS) return roundToTwo(41.0439 - 0.069576 * pos);
+            if (pos <= level_count) return roundToTwo(41.0439 - 0.069576 * pos);
 
             return roundToTwo(
-                TAIL_START_SCORE * Math.exp(-DECAY * (pos - LAST_POS)),
+                TAIL_START_SCORE * Math.exp(-DECAY * (pos - level_count)),
             );
         },
     },

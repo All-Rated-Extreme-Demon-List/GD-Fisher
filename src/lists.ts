@@ -66,6 +66,12 @@ type ILLLevel = {
     };
 };
 
+type ULLLevel = {
+    path: string;
+    name: string;
+    sort_order: number;
+};
+
 export const lists = [
     {
         name: 'AREDL',
@@ -258,6 +264,80 @@ export const lists = [
             }
         },
         cutoff: null,
+    },
+    {
+        name: 'EDL',
+        fullname: 'Easy Demon List',
+        value: 'edl',
+        repo: 'https://github.com/Brachiozaur/EasyDemonList.git',
+        cutoff: 150,
+        score: (pos, _) => {
+            return pos <= 150
+                ? Math.max(-25.28113 * Math.pow(pos - 1, 0.4) + 200, 0)
+                : 0;
+        },
+    },
+    {
+        name: 'MDL',
+        fullname: 'Medium Demon List',
+        value: 'mdl',
+        repo: 'https://github.com/Medium-Demon-List-Staff/MDL.git',
+        cutoff: 150,
+        score: (pos, _) => {
+            return pos <= 150
+                ? Math.max(-1.641477 * Math.pow(pos - 1, 0.5) + 40, 0)
+                : 0;
+        },
+    },
+    {
+        name: 'LL',
+        fullname: 'Layout List',
+        value: 'll',
+        repo: 'https://github.com/the-layout-list/website.git',
+        cutoff: null,
+        score: (pos, level_count) => {
+            const TAIL_START_SCORE = 41.0439 - 0.069576 * level_count;
+            const DECAY = 0.069576 / TAIL_START_SCORE;
+            const roundToTwo = (value: number) => Number(value.toFixed(2));
+
+            if (pos <= 1) return roundToTwo(750);
+            if (pos <= 160)
+                return roundToTwo(
+                    1224.676 * Math.pow(pos + 1.49536, -0.171879) - 431.652,
+                );
+            if (pos <= 401) return roundToTwo(124.597 - 0.275597 * pos);
+            if (pos <= level_count) return roundToTwo(41.0439 - 0.069576 * pos);
+
+            return roundToTwo(
+                TAIL_START_SCORE * Math.exp(-DECAY * (pos - level_count)),
+            );
+        },
+    },
+    {
+        name: 'ULL',
+        fullname: 'Upcoming Levels List',
+        value: 'ull',
+        cutoff: null,
+        cache: async () => {
+            try {
+                const list = await fetch(
+                    'https://d1-wrkr.ullteam.workers.dev/api/list',
+                );
+                return ((await list.json()) as ULLLevel[]).map(
+                    ({ path, name, sort_order }) => {
+                        return {
+                            name: name,
+                            position: sort_order,
+                            filename: path,
+                        };
+                    },
+                );
+            } catch (error) {
+                Logger.error('Failed to fetch ULL: ' + error);
+                return [];
+            }
+        },
+        score: (pos, _) => Math.floor(300 * Math.exp(-0.007 * pos)) + 1,
     },
 ] as const satisfies readonly List[];
 
